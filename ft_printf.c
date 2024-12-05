@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <unistd.h>
+#include <stdio.h>
 
 static int	ft_conversion(const char type, va_list vargs)
 {
@@ -25,15 +27,21 @@ static int	ft_conversion(const char type, va_list vargs)
 	else if (type == 'x' || type == 'X')
 		return (ft_putnbr_hexa(va_arg(vargs, unsigned int), type));
 	else if (type == 'p')
+	{
+		if (va_arg(vargs, int *) == NULL)
+			return (ft_putstr("(nil)"));
+		if (ft_putstr("0x") == -1)
+			return (-1);
 		return (ft_putptr(va_arg(vargs, void *)));
+	}
 	else if (type == '%')
 		return (ft_putchar('%'));
 	return (-1);
 }
 
-int ft_printf(const char *str, ...)
+int	ft_printf(const char *str, ...)
 {
-    va_list	vargs;
+	va_list	vargs;
 	int		len;
 	int		check;
 
@@ -58,5 +66,4 @@ int ft_printf(const char *str, ...)
 	}
 	va_end(vargs);
 	return (len);
-    
 }

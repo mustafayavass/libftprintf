@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <unistd.h>
 
 int	ft_putchar(char c)
 {
@@ -79,8 +80,6 @@ int	ft_putptr(void *ptr)
 
 	len = 0;
 	aux = 0;
-	if (ft_putstr("0x") == -1)
-		return (-1);
 	len += 2;
 	aux = ft_putnbr_hexa((unsigned long)ptr, 'x');
 	if (aux == -1)
