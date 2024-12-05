@@ -3,7 +3,7 @@
 
 int main()
 {
-    ft_printf(" %p \n", -1);
-    printf(" %p \n", -1);
+    ft_printf("%p\n", 432);
+    printf("%p\n", 432);
 
 }

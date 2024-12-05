@@ -12,10 +12,12 @@
 
 #include "ft_printf.h"
 #include <unistd.h>
-#include <stdio.h>
+#include <stdarg.h>
 
 static int	ft_conversion(const char type, va_list vargs)
 {
+	void *ptr;
+
 	if (type == 'c')
 		return (ft_putchar(va_arg(vargs, int)));
 	else if (type == 'u')
@@ -28,11 +30,12 @@ static int	ft_conversion(const char type, va_list vargs)
 		return (ft_putnbr_hexa(va_arg(vargs, unsigned int), type));
 	else if (type == 'p')
 	{
-		if (va_arg(vargs, int *) == NULL)
+		ptr = va_arg(vargs, void *);
+		if (ptr == NULL)
 			return (ft_putstr("(nil)"));
 		if (ft_putstr("0x") == -1)
 			return (-1);
-		return (ft_putptr(va_arg(vargs, void *)));
+		return (ft_putptr(ptr));
 	}
 	else if (type == '%')
 		return (ft_putchar('%'));
